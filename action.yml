@@ -1,0 +1,49 @@
+name: 'App Center Distribute'
+description: 'Distribute app to testers and users using App Center'
+author: 'tomisacat <wajmjjj@gmail.com>'
+inputs:
+  appName:
+    description: 'App name followed by username e.g. tomisacat/Sample-App'
+    required: true
+  token:
+    description: "Upload token - you can get one from appcenter.ms/settings"
+    required: true
+  group:
+    description: "Distribution group"
+    required: true
+  file:
+    description: "Artefact to upload (.apk or .ipa)"
+    required: true
+  buildVersion:
+    description: "Build version parameter required for .zip, .msi, .pkg and .dmg files"
+    required: false
+  buildNumber:
+    description: "Build number parameter required for macOS .pkg and .dmg files"
+    required: false
+  releaseNotes:
+    description: "Release notes visible on release page"
+    required: false
+  gitReleaseNotes:
+    description: "Generate release notes based on the latest git commit"
+    required: false
+  notifyTesters:
+    description: "If true, send an email notification to the distribution group"
+    required: false
+  debug:
+    description: "If true, shows additional information from the action execution"
+    required: false
+    default: false
+branding:
+  color: "red"
+  icon: "send"
+runs:
+  using: "composite"
+  steps:
+    - run: chmod +x install-appcenter-cli.sh
+      shell: bash
+    - run: chmod +x upload-to-appcenter.sh
+      shell: bash
+    - run: install-appcenter-cli.sh
+      shell: bash
+    - run: upload-to-appcenter.sh
+      shell: bash
