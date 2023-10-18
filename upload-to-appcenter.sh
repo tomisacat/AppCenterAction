@@ -1,5 +1,4 @@
 #!/bin/bash -e
-set -x
 
 git config --global --add safe.directory $GITHUB_WORKSPACE
 
